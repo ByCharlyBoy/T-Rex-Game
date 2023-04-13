@@ -1,5 +1,6 @@
 
 import Phaser from "phaser";
+import { debug } from "webpack";
 
 const config = {
   type: Phaser.AUTO,
