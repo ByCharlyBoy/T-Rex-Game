@@ -1,6 +1,5 @@
 
 import Phaser from "phaser";
-import { debug } from "webpack";
 
 const config = {
   type: Phaser.AUTO,
@@ -26,10 +25,16 @@ let cactusGroup;
 let nextCactusDistance = 0;
 let tRex;
 
+function Input()
+{
+  tRex.setVelocityY(-300); 
+  console.log("ando salti"); 
+}
+
 function preload() { // Aquí se cargan los recursos necesarios, como las imágenes y los sonidos del juego.
   this.load.image('background', 'assets/fondo.png'); //Fondo
   this.load.image('ground', 'assets/ground.png'); //Suelo
-  this.load.spritesheet('trex', 'assets/trex.png', { frameWidth: 44, frameHeight: 52 });
+  this.load.spritesheet('trex', 'assets/rexi-run.png', { frameWidth: 88, frameHeight: 94 });
   this.load.image('cactus', 'assets/cactus.png'); //Obstaculo
 }
 
@@ -46,10 +51,18 @@ function create() { // Aquí se crean los objetos del juego, como el personaje p
 
   tRex = this.physics.add.sprite(50, 100, 'trex');
   tRex.setCollideWorldBounds(true);
-  tRex.play('run');
+  //tRex.play('run'); //problemaaaaaa
   tRex.body.setSize(44, 52);
 
   cactusGroup = this.physics.add.group();
+
+  this.input.keyboard.on("keydown-W", Input); 
+
+}
+
+function startGame() {
+  this.tRex.setVelocityX(80);
+  this.tRex.play('run', 1);
 }
 
 function update() {  // Aquí se actualiza el estado del juego, como la posición del personaje y los obstáculos en la pantalla.
@@ -74,8 +87,13 @@ function update() {  // Aquí se actualiza el estado del juego, como la posició
     nextCactusDistance -= 1;
   }
 
-  if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.on("keydown-SPACE", tRex))) {
-    tRex.setVelocityY(-300);
-  }
+  
+
+  //start
+   
+  
+
+  /*this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)*/
+
 
 }
