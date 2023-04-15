@@ -9,7 +9,7 @@ const config = {
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: { y: 200 },
+      gravity: { y: 500 },
       debug: false 
     }
   },
@@ -34,7 +34,7 @@ function Input()
 function preload() { // Aquí se cargan los recursos necesarios, como las imágenes y los sonidos del juego.
   this.load.image('background', 'assets/fondo.png'); //Fondo
   this.load.image('ground', 'assets/ground.png'); //Suelo
-  this.load.spritesheet('trex', 'assets/rexi-run.png', { frameWidth: 88, frameHeight: 94 });
+  this.load.spritesheet('trex', 'assets/trex.png', { frameWidth: 88, frameHeight: 94 });
   this.load.image('cactus', 'assets/cactus.png'); //Obstaculo
 }
 
