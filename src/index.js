@@ -1,4 +1,3 @@
-
 import Phaser from "phaser";
 
 const config = {
@@ -6,6 +5,7 @@ const config = {
   width: 800,
   height: 150,
   parent: 'game', 
+  //transparent, 
   physics: {
     default: 'arcade',
     arcade: {
@@ -21,72 +21,60 @@ const config = {
 };
 
 let game = new Phaser.Game(config);
-let cactusGroup; 
-let nextCactusDistance = 0;
-let tRex;
 
-function Input()
-{
-  tRex.setVelocityY(-300); 
-  console.log("ando salti"); 
-}
-
-function preload() { // Aquí se cargan los recursos necesarios, como las imágenes y los sonidos del juego.
+function preload() { 
   this.load.image('background', 'assets/fondo.png'); //Fondo
   this.load.image('ground', 'assets/ground.png'); //Suelo
   this.load.spritesheet('trex', 'assets/trex.png', { frameWidth: 88, frameHeight: 94 });
   this.load.image('cactus', 'assets/cactus.png'); //Obstaculo
 }
 
-function create() { // Aquí se crean los objetos del juego, como el personaje principal y los obstáculos.
-  this.add.image(0, 0, 'background').setOrigin(0);
-  this.add.image(0, 105, 'ground').setOrigin(0);
+function create() { 
+  //Carga los sprites
+  this.add.image(400, 75, 'background').setScrollFactor(0, 0); 
+  this.add.image(400, 130, 'ground').setScrollFactor(0, 1); 
+  let trex = this.physics.add.sprite(80, 100, 'trex').setScale(1.5); 
 
-  this.anims.create({
-    key: 'run',
-    frames: this.anims.generateFrameNumbers('trex', { start: 0, end: 1 }),
-    frameRate: 10,
-    repeat: -1
-  });
+  // Hacer que el Trex colisione en teoria con el suelo
+  trex.setCollideWorldBounds(true); 
+  this.physics.add.collider(trex, this.physics.world.bounds); 
 
-  tRex = this.physics.add.sprite(50, 100, 'trex');
-  tRex.setCollideWorldBounds(true);
-  //tRex.play('run'); //problemaaaaaa
-  tRex.body.setSize(44, 52);
+  //Controlar el salto y la agachada del Trex
+  this.input.keyboard.on("keydown-SPACE", () => {
+    trex.setVelocityY(-300); 
+  }); 
 
-  cactusGroup = this.physics.add.group();
+  this.input.keyboard.on("keydown-W", () => {
+    trex.setVelocityY(-300); 
+  }); 
 
-  this.input.keyboard.on("keydown-W", Input); 
+  this.input.keyboard.on("keydown-S", () => {
+    trex.setScale(1.5, 0.5);  
+    //console.log("encojess"); 
+  }); 
+ 
+  this.input.keyboard.on("keydown-S", () => {
+    trex.setScale(1.5, 1.5);  
+    //console.log("agranda"); 
+  }); 
 
-}
-
-function startGame() {
-  this.tRex.setVelocityX(80);
-  this.tRex.play('run', 1);
-}
-
-function update() {  // Aquí se actualiza el estado del juego, como la posición del personaje y los obstáculos en la pantalla.
-
-  this.physics.world.collide(tRex, cactusGroup, () => {
-    // Game Over
-    console.log("Game Over");
-  });
-
-  cactusGroup.getChildren().forEach((cactus) => {
-    if (cactus.x < -cactus.width) {
-      cactus.destroy();
+  // Crear grupo de obstáculos usando Object Pooling
+  /*this.time.addEvent({
+    delay: Phaser.Math.Between(2000, 5000),  
+    loop: true, 
+    callback: () => {
+      const obstacle = obstacleGroup.get(); 
+      obstacle.x = 800;
+      obstacle.y = 120; 
+      obstacle.setVelocityX(-200); 
+      obstacle.body.checkCollision.left = false;
+      obstacle.body.checkCollision.right = false;
+      obstacle.body.checkCollision.down = false;
     }
-  });
+  }); */
+  
+}
 
-  if (nextCactusDistance <= 0) {
-    let newCactus = this.physics.add.sprite(800, 95, 'cactus');
-    newCactus.setVelocityX(-200);
-    cactusGroup.add(newCactus);
-    nextCactusDistance = Phaser.Math.Between(200, 400);
-  } else {
-    nextCactusDistance -= 1;
-  }
-
-
+function update() {  
 
 }
