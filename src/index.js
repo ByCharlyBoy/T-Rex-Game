@@ -87,13 +87,6 @@ function update() {  // Aquí se actualiza el estado del juego, como la posició
     nextCactusDistance -= 1;
   }
 
-  
-
-  //start
-   
-  
-
-  /*this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)*/
 
 
 }
