@@ -1,7 +1,7 @@
 
-const PIPE_SPAWN_TIME=3000;
-const PIPE_VELOCITY=150;
-const DEFAULT_PIPE_SPAWN_POSITION_RANGE=[50,250]
+const CACTU_SPAWN_TIME=3000;
+const CATU_VELOCITY=150;
+const DEFAULT_PIPE_SPAWN_POSITION_RANGE=[50,250]//bajar rangos
 const DEFAULT_PIPE_GAP_SIZE_RANGE=[100,300]
 
 export default class Cactuses{
@@ -11,7 +11,7 @@ export default class Cactuses{
           allowGravity:false,
           immovable:true
         }); 
-      this.pipes=[];
+      this.obstacle=[];
       this.pool=[];
       this.layer=layer;
       this.onPipeExited= ()=>{};
@@ -20,7 +20,7 @@ export default class Cactuses{
     start(){
       this.spawnPipe();
       this.scene.time.addEvent({
-        delay: PIPE_SPAWN_TIME,
+        delay: CACTU_SPAWN_TIME,
         callback: () => {
           this.spawnPipe();
         },
@@ -28,8 +28,8 @@ export default class Cactuses{
        });
     } 
     update(){
-      for(let i=0;i<this.pipes.length;i++){
-          const pipe=this.pipes[i];
+      for(let i=0;i<this.obstacle.length;i++){
+          const pipe=this.obstacle[i];
           if(pipe.hasExitScreen()){
               this.moveToPool(pipe,i);
               this.onPipeExited();
@@ -49,12 +49,12 @@ export default class Cactuses{
      
      }
      
-     pipe.setVelocity(PIPE_VELOCITY);
+     pipe.setVelocity(CATU_VELOCITY);
      pipe.setVisible(true);
-     this.pipes.push(pipe);
+     this.obstacle.push(pipe);
     }
     moveToPool(pipe,index){
-      this.pipes.splice(index,1);
+      this.obstacle.splice(index,1);
       this.pool.push(pipe);
       pipe.setVisible(false);
       pipe.setVelocity(0);
@@ -74,7 +74,7 @@ class Cactus{
       var gapSize=Phaser.Math.Between(...this.pipeGapSizeRange);
       this.upper=group.create(spawnX,spawnPosition,"pipe").setOrigin(0,1);
       this.lower=group.create(spawnX,spawnPosition+gapSize,"pipe").setOrigin(0);
-     layer.add([this.upper,this.lower]);
+      layer.add([this.upper,this.lower]);
     }
 
     resetPosition(){
