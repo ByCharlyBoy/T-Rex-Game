@@ -32,7 +32,7 @@ export default class GameScene extends Phaser.Scene{
         this.backgroundLayer.game = this.add.layer();
         this.backgroundLayer.ui = this.add.layer();
 
-        let fondo = this.add.image(0, 0, "fondo").setOrigin(0.2, 0.15); 
+        let fondo = this.add.image(0, 150, "fondo").setOrigin(0, 0); 
         this.backgroundLayer.background.add(fondo); 
 
         this.dino = new TRex(this,100,this.config.height/2,"Rexi"); 

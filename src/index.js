@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import GameScene from "./scenes/gameScene"
 
 const SHARED_CONFIG={
-  width: 1000,
+  width: 100,
   height: 150,
 }
 
