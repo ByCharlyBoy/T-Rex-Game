@@ -59,11 +59,11 @@ export default class GameScene extends Phaser.Scene{
         this.invironment.update();
     }
 
-    /*gameOver(){
+    gameOver(){
         //alert("Mamaste");
         this.scores.checkHighScore();
         this.scene.restart();
-    }*/
+    }
     pause(){
         this.physics.pause();
         this.scene.pause();
