@@ -1,9 +1,10 @@
+
 const PIPE_SPAWN_TIME=3000;
 const PIPE_VELOCITY=150;
 const DEFAULT_PIPE_SPAWN_POSITION_RANGE=[50,250]
 const DEFAULT_PIPE_GAP_SIZE_RANGE=[100,300]
 
-export default class Obstacles{
+export default class Cactuses{
     constructor(scene,layer){
         this.scene=scene;
           this.group=scene.physics.add.group({
@@ -44,7 +45,7 @@ export default class Obstacles{
          obstacl.resetPosition();
          this.pool.splice(0,1);
        }else{
-        obstacl=new Pipe(this.group,this.scene.config.width,this.layer);
+        pipe=new Cactus(this.group,this.scene.config.width,this.layer);
        
        }
        
@@ -63,7 +64,7 @@ export default class Obstacles{
       }
 }
 
-class Pipe{
+class Cactus{
     constructor(group,spawnX,layer){
         this.group=group;
         this.spawnX=spawnX;

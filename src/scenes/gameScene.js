@@ -1,6 +1,3 @@
-import TreXi from "../config/TreXi";
-import Obstacles from "../config/Environment";
-import score from "../config/Score";
 
 
 export default class GameScene extends Phaser.Scene{
@@ -28,14 +25,14 @@ export default class GameScene extends Phaser.Scene{
         let fondo = this.add.image(0, 0, "fondo").setOrigin(0.2, 0.15); 
         this.backgroundLayer.background.add(fondo); 
 
-        this.Trexi = new TreXi(this,100,this.config.height/2,"Rexi"); 
+        //this.Trexi = new TreXi(this,100,this.config.height/2,"Rexi"); 
         this.backgroundLayer.game.add(this.Trexi);
 
         //this.physics.add.collider(this.pipes, this.bird);
-        this.Environment=new Obstacles(this,this.backgroundLayer.game);
+        //this.Environment=new Obstacles(this,this.backgroundLayer.game);
         this.physics.add.collider(this.Trexi,this.Environment.getGroup(),this.gameOver,null,this);
 
-        this.Score=new score(this,16,16,this.backgroundLayer.ui);
+        //this.Score=new score(this,16,16,this.backgroundLayer.ui);
         var pause_button=this.add.image(this.config.width-10,10,"restart.png").setOrigin(1,0);
         /*-> no funciona el button*/pause_button.on("pointer-down",this.pause,this);
 
