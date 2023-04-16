@@ -1,18 +1,28 @@
-
+import TRex from "../config/dino";
+import Cactuses from "../config/invironment";
+import Score from "../config/scores";
 
 export default class GameScene extends Phaser.Scene{
     constructor(config){
         super(); 
         this.config =  config; 
 
-        this.Trexi = null;
-        this.Environment = null;
-        this.Score = null;
+        this.dino = null;
+        this.invironment = null;
+        this.scores = null;
+
+        this.backgroundLayer={ //idk pa que sirve esto
+
+            background:null,
+            game:null,
+            ui:null
+            
+        }
     }
 
     preload(){
         this.load.image("fondo","assets/ground2.png");
-        this.load.spritesheet("Rexi","assets/rexi-idle.png", { frameWidth: 88, frameHeight: 94 });
+        this.load.image("Rexi","assets/rexi-idle.png");
         this.load.image("obstacle-1","assets/cactuses_small_1.png");
         this.load.image("restart_button","assets/restart.png");
     }
@@ -25,23 +35,38 @@ export default class GameScene extends Phaser.Scene{
         let fondo = this.add.image(0, 0, "fondo").setOrigin(0.2, 0.15); 
         this.backgroundLayer.background.add(fondo); 
 
-        //this.Trexi = new TreXi(this,100,this.config.height/2,"Rexi"); 
-        this.backgroundLayer.game.add(this.Trexi);
+        this.dino = new TRex(this,100,this.config.height/2,"Rexi"); 
+        this.backgroundLayer.game.add(this.dino);
 
         //this.physics.add.collider(this.pipes, this.bird);
-        //this.Environment=new Obstacles(this,this.backgroundLayer.game);
-        this.physics.add.collider(this.Trexi,this.Environment.getGroup(),this.gameOver,null,this);
+        this.invironment=new Cactuses(this,this.backgroundLayer.game);
+        this.physics.add.collider(this.dino,this.invironment.getGroup(),this.gameOver,null,this);
 
-        //this.Score=new score(this,16,16,this.backgroundLayer.ui);
+        this.scores=new Score(this,16,16,this.backgroundLayer.ui);
         var pause_button=this.add.image(this.config.width-10,10,"restart.png").setOrigin(1,0);
         /*-> no funciona el button*/pause_button.on("pointer-down",this.pause,this);
 
-        
-        this.Environment.onPipeExited=()=>{
+        this.invironment.onPipeExited=()=>{
             this.score.addScore(1);
         }
-        this.Environment.start();
-        
+        this.invironment.start();  
+    }
+
+    update(){
+        this.dino.checkOffbounds(()=>{
+            this.gameOver();
+        })
+        this.invironment.update();
+    }
+
+    gameOver(){
+        alert("Mamaste");
+        this.scores.checkHighScore();
+        this.scene.restart();
+    }
+    pause(){
+        this.physics.pause();
+        this.scene.pause();
     }
 }
 
