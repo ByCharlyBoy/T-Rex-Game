@@ -2,22 +2,22 @@ import Phaser from "phaser";
 import GameScene from "./scenes/gameScene"
 
 const SHARED_CONFIG={
-  width: 100,
-  height: 150,
-}
+  width: 1000,
+  height: 300,
 
-const config = {
+}
+const config={
   type: Phaser.AUTO,
-  //parent: 'game', 
-  //transparent, 
-  physics: {
-    default: 'arcade',
-    arcade: {
-      gravity: { y: 500 },
-      debug: true 
+  ...SHARED_CONFIG,
+  physics:{
+    default:"arcade",
+    arcade:{
+      gravity:{y:400},
+      debug: true
     }
+    
   },
   scene:[new GameScene(SHARED_CONFIG)]
-};
-
-/*let game = */ new Phaser.Game(config);
+  
+}
+new Phaser.Game(config);

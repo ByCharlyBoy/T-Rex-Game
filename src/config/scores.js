@@ -9,14 +9,12 @@ export default class Score{
      
         var loadHighScore=parseInt(localStorage.getItem(HIGH_SCORE_SAVE_KEY))
         this.highScoreValue= isNaN(loadHighScore) ? 0:loadHighScore;
-
         /*if(loadHighScore==NaN){ es lo mismo que lode arriba
             this.highScoreValue=0;
         }
         else{
             this.highScoreValue=loadHighScore;
         }*/
-
         this.currentScoreText=scene.add.text(x,y,CURRENT_SCORE_LABEL+this.currentScoreValue).setOrigin(0);
         this.highScoreText=scene.add.text(x,y+12,HIGH_CSCORE_LABEL+this.highScoreValue).setOrigin(0);
         layer.add([this.currentScoreText,this.highScoreText]);
