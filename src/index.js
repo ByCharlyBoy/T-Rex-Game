@@ -35,6 +35,10 @@ function create() {
   this.add.image(400, 130, 'ground').setScrollFactor(0, 1); 
   let trex = this.physics.add.sprite(80, 100, 'trex').setScale(1.5); 
 
+  /*this.physics.add.collider(tRex, ca, () => { 
+    alert("You Lose"); 
+  })*/
+
   // Hacer que el Trex colisione en teoria con el suelo
   trex.setCollideWorldBounds(true); 
   this.physics.add.collider(trex, this.physics.world.bounds); 
@@ -50,12 +54,12 @@ function create() {
 
   this.input.keyboard.on("keydown-S", () => {
     trex.setScale(1.5, 0.5);  
-    //console.log("encojess"); 
+    console.log("encojess"); 
   }); 
  
   this.input.keyboard.on("keydown-S", () => {
     trex.setScale(1.5, 1.5);  
-    //console.log("agranda"); 
+    console.log("agranda"); 
   }); 
 
   // Crear grupo de obstáculos usando Object Pooling
@@ -73,6 +77,11 @@ function create() {
     }
   }); */
   
+}
+
+function spawnCactus(scene)
+{
+  //consultrar proyecto flappybird
 }
 
 function update() {  
