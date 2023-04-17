@@ -12,7 +12,6 @@ export default class TRex extends Phaser.GameObjects.Sprite{
         scene.input.keyboard.on("keydown-SPACE",this.jump,this);
         scene.input.keyboard.on("keydown-W",this.jump,this); 
         scene.input.keyboard.on("keydown-S",this.shrink,this);
-        //scene.input.keyboard.on("keyup-S",this.shrink2,this);
     
         /*scene.input.keyboard.on("keydown-S", () => {
             scene.setScale(1.5, 0.5); 
@@ -23,8 +22,6 @@ export default class TRex extends Phaser.GameObjects.Sprite{
         this.isShrunk = false; 
 
     }
-
-   
 
     checkOffbounds(callback){
         if(this.getBounds().top >= 0-OFFBOUNS_THERSHOLD&&this.getBounds().bottom<=this.scene.config.height+OFFBOUNS_THERSHOLD){
@@ -46,12 +43,7 @@ export default class TRex extends Phaser.GameObjects.Sprite{
         else {
             this.setScale(1, 0.5); 
             this.isShrunk = true; 
-        } //SI funcina, pero cuando regresas a tu escala verdadera, se reinicia el game 
-        
-        /*this.setScale(1, 0.5);
-        console.log("se te encoje el dino");
-        this.setScale(1.5, 1.5); */
-
+        }
     }
 }
     

@@ -5,23 +5,23 @@ import Score from "../config/scores";
 export default class GameScene extends Phaser.Scene{
   constructor(config){
     super();
-    this.config=config;
-    this.dino=null;
-    this.invironment=null;
-    this.score=null;
+    this.config = config;
+    this.dino = null;
+    this.invironment = null;
+    this.score = null;
 
     this.backgroundLayer={
 
-        background:null,
-        game:null,
-        ui:null
+        background: null,
+        game: null,
+        ui: null
         
     }
   } 
   preload(){
     this.load.image("fondo","assets/ground2.png");
-    this.load.image("bird","assets/rexi-idle.png");
-    this.load.image("pipe","assets/cactuses_small_1.png");
+    this.load.image("Trex","assets/rexi-idle.png");
+    this.load.image("obstacle-1","assets/cactuses_small_1.png");
     this.load.image("pause_button","assets/restart.png")
   }
   create(){
@@ -34,7 +34,7 @@ export default class GameScene extends Phaser.Scene{
     let fondo=this.add.image(0, 250,"fondo").setScrollFactor(0, 1); 
     this.backgroundLayer.background.add(fondo);
 
-    this.dino=new TRex(this,100,this.config.height/2,"bird");
+    this.dino=new TRex(this,100,this.config.height/2,"Trex");
     this.backgroundLayer.game.add(this.dino);
 
     //this.physics.add.collider(this.pipes, this.bird);

@@ -72,8 +72,8 @@ class Cactus{
       this.pipeGapSizeRange=DEFAULT_PIPE_GAP_SIZE_RANGE;
       var spawnPosition=Phaser.Math.Between(...this.pipeSpawnPositionRange);
       var gapSize=Phaser.Math.Between(...this.pipeGapSizeRange);
-      this.upper=group.create(spawnX,spawnPosition,"pipe").setOrigin(0,1);
-      this.lower=group.create(spawnX,spawnPosition+gapSize,"pipe").setOrigin(0);
+      this.upper=group.create(spawnX,spawnPosition,"obstacle-1").setOrigin(0,1);
+      this.lower=group.create(spawnX,spawnPosition+gapSize,"obstacle-1").setOrigin(0);
       layer.add([this.upper,this.lower]);
     }
 
