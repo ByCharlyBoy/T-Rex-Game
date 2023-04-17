@@ -52,15 +52,15 @@ export default class GameScene extends Phaser.Scene{
   }
 
   update(){
-    this.dino.checkOffbounds(()=>{
+    /*this.dino.checkOffbounds(()=>{
         this.gameOver();
-    })
+    })*/ //soluciondado lo de agacgarse 
     this.invironment.update();
   }
 
 
   gameOver(){
-    //alert("Mamaste");
+    alert("Mamaste");
     this.score.checkHighScore();
     this.scene.restart();
   }
