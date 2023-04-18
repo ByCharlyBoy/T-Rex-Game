@@ -31,7 +31,7 @@ export default class GameScene extends Phaser.Scene{
     this.backgroundLayer.game=this.add.layer();
     this.backgroundLayer.ui=this.add.layer();
 
-    let fondo=this.add.image(0, 250,"fondo").setScrollFactor(0, 1); 
+    let fondo=this.add.image(0, 250 ,"fondo").setScrollFactor(0, 1); //270
     this.backgroundLayer.background.add(fondo);
 
     this.dino=new TRex(this,100,this.config.height/2,"Trex");
@@ -48,7 +48,7 @@ export default class GameScene extends Phaser.Scene{
     this.invironment.onPipeExited=()=>{
         this.score.addScore(1);
     }
-    this.invironment.start();
+    this.invironment.start(); //Descomentar para que jale
   }
 
   update(){
@@ -60,7 +60,7 @@ export default class GameScene extends Phaser.Scene{
 
 
   gameOver(){
-    alert("Mamaste");
+    //alert("Mamaste");
     this.score.checkHighScore();
     this.scene.restart();
   }

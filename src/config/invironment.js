@@ -1,95 +1,111 @@
 
-const CACTU_SPAWN_TIME=3000;
-const CATU_VELOCITY=150;
-const DEFAULT_PIPE_SPAWN_POSITION_RANGE=[50,250]//bajar rangos
-const DEFAULT_PIPE_GAP_SIZE_RANGE=[100,300]
+const CACTU_SPAWN_TIME=2000;
+const CATU_VELOCITY=300;
+const DEFAULT_PIPE_SPAWN_POSITION_RANGE=[300,250]//bajar rangos
+const DEFAULT_PIPE_GAP_SIZE_RANGE=[100,300] //Rango de tamanos 
 
 export default class Cactuses{
-    constructor(scene,layer){
-      this.scene=scene;
-        this.group=scene.physics.add.group({
-          allowGravity:false,
-          immovable:true
-        }); 
-      this.obstacle=[];
-      this.pool=[];
-      this.layer=layer;
-      this.onPipeExited= ()=>{};
-    }
+  constructor(scene,layer){
+    this.scene=scene;
+      this.group=scene.physics.add.group({
+        allowGravity:false,
+        immovable:true
+      }); 
 
-    start(){
-      this.spawnPipe();
-      this.scene.time.addEvent({
-        delay: CACTU_SPAWN_TIME,
-        callback: () => {
-          this.spawnPipe();
-        },
-        loop: true
-       });
-    } 
-    update(){
-      for(let i=0;i<this.obstacle.length;i++){
-          const pipe=this.obstacle[i];
-          if(pipe.hasExitScreen()){
-              this.moveToPool(pipe,i);
-              this.onPipeExited();
-              break;
-          }
-      }
+    this.obstacle=[];
+    this.pool=[];
+    this.layer = layer;
+    this.onPipeExited = ()=>{};
+  }
+
+  start(){
+    this.spawnObstacle();
+    this.scene.time.addEvent({
+      delay: CACTU_SPAWN_TIME,
+      callback: () => {
+        this.spawnObstacle();
+      },
+      loop: true
+     });
+  } 
+
+  update(){
+    for(let i=0;i<this.obstacle.length;i++){ //metodo object pooling
+        const cactu=this.obstacle[i];
+        if(cactu.hasExitScreen()){
+            this.moveToPool(cactu,i);
+            this.onPipeExited();
+            break;
+        }
     }
-    spawnPipe(){
-     let pipe=null;
-     //Object pooling
-      if(this.pool.length>0){
-       pipe=this.pool[0];
-       pipe.resetPosition();
-       this.pool.splice(0,1);
-     }else{
-      pipe=new Cactus(this.group,this.scene.config.width,this.layer);
-     
-     }
-     
-     pipe.setVelocity(CATU_VELOCITY);
-     pipe.setVisible(true);
-     this.obstacle.push(pipe);
+  }
+
+  spawnObstacle(){
+    let cactus=null;
+    //Object pooling
+     if(this.pool.length>0){
+      cactus=this.pool[0];
+      cactus.resetPosition();
+      this.pool.splice(0,1);
+    }else{
+     cactus=new Cactus(this.group,this.scene.config.width,this.layer);
     }
-    moveToPool(pipe,index){
-      this.obstacle.splice(index,1);
-      this.pool.push(pipe);
-      pipe.setVisible(false);
-      pipe.setVelocity(0);
-    }
-    getGroup(){
-      return this.group;
-    }
+    
+    cactus.setVelocity(CATU_VELOCITY);
+    cactus.setVisible(true);
+    this.obstacle.push(cactus);
+    //se mueve basatante random jajaja
+    /*let distance = Phaser.Math.Between(...DEFAULT_PIPE_GAP_SIZE_RANGE) + 300; //anade dis fija
+    this.scene.tweens.add({
+      targets: cactus.group.getChildren(),
+      x: '-=' + distance,
+      duration: 1000,
+      ease: 'Power2',
+    }); */
+   }
+
+   moveToPool(obstac,index){
+     this.obstacle.splice(index,1);
+     this.pool.push(obstac);
+     obstac.setVisible(false);
+     obstac.setVelocity(0);
+   }
+
+   getGroup(){
+    return this.group;
+  }
 }
 
 class Cactus{
-    constructor(group,spawnX,layer){
-      this.group=group;
-      this.spawnX=spawnX;
-      this.pipeSpawnPositionRange=DEFAULT_PIPE_SPAWN_POSITION_RANGE;
-      this.pipeGapSizeRange=DEFAULT_PIPE_GAP_SIZE_RANGE;
-      var spawnPosition=Phaser.Math.Between(...this.pipeSpawnPositionRange);
-      var gapSize=Phaser.Math.Between(...this.pipeGapSizeRange);
-      this.upper=group.create(spawnX,spawnPosition,"obstacle-1").setOrigin(0,1);
-      this.lower=group.create(spawnX,spawnPosition+gapSize,"obstacle-1").setOrigin(0);
-      layer.add([this.upper,this.lower]);
-    }
+  constructor(group,spawnX,layer){
+    this.group=group;
+    this.spawnX=spawnX;
+    this.pipeSpawnPositionRange=DEFAULT_PIPE_SPAWN_POSITION_RANGE;
+    this.pipeGapSizeRange=DEFAULT_PIPE_GAP_SIZE_RANGE;
+    let spawnPosition=Phaser.Math.Between(...this.pipeSpawnPositionRange);
+    let gapSize=Phaser.Math.Between(...this.pipeGapSizeRange);
+    this.upper=group.create(spawnX,spawnPosition,"obstacle-1").setOrigin(0,1);
+    this.lower=group.create(spawnX,spawnPosition+gapSize,"obstacle-1").setOrigin(0);
+    layer.add([this.upper,this.lower]);
+  }
 
-    resetPosition(){
-      this.upper.x=this.spawnX;
-      this.lower.x=this.spawnX;
-    }
-    setVelocity(velocity){
-      this.upper.body.velocity.x= -velocity;
-      this.lower.body.velocity.x= -velocity;
-    }
-    setVisible(state){
-      this.upper.visible=state;
-      this.lower.visible=state;
-    }
-    hasExitScreen(){
-      return this.upper.getBounds().right < 0;
-    }
+  resetPosition(){
+    this.upper.x=this.spawnX; ///
+    //this.lower.x=this.spawnX;
+  }
+
+  setVelocity(velocity){
+    this.upper.body.velocity.x= -velocity; //
+    //this.lower.body.velocity.x= -velocity;
+  }
+
+  setVisible(state){
+    //this.upper.visible=state; //
+    this.lower.visible=state;
+  }
+
+  hasExitScreen(){
+    return this.upper.getBounds().right < 0;
+  }
 } 
+
