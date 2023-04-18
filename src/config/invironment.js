@@ -1,7 +1,7 @@
 
 const CACTU_SPAWN_TIME=2000;
 const CATU_VELOCITY=300;
-const DEFAULT_PIPE_SPAWN_POSITION_RANGE=[280,280]//bajar rangos
+const DEFAULT_PIPE_SPAWN_POSITION_RANGE=[300,300]//bajar rangos
 const DEFAULT_PIPE_GAP_SIZE_RANGE=[100,300] //Rango de tamanos 
 
 export default class Cactuses{
