@@ -60,7 +60,7 @@ export default class GameScene extends Phaser.Scene{
 
 
   gameOver(){
-    //alert("Mamaste");
+    alert("Game Over");
     this.score.checkHighScore();
     this.scene.restart();
   }
