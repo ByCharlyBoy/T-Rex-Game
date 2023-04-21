@@ -45,7 +45,7 @@ export default class GameScene extends Phaser.Scene{
     var pause_button=this.add.image(this.config.width-10,10,"pause_button").setOrigin(1,0);
     /*-> no funciona el button*/pause_button.on("pointer-down",this.pause,this);
 
-    this.invironment.onPipeExited=()=>{
+    this.invironment.onObstacleExited=()=>{
         this.score.addScore(1);
     }
     this.invironment.start(); //Descomentar para que jale

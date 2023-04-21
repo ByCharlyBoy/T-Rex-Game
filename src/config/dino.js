@@ -1,5 +1,7 @@
 const JUMP_VELOCITY = 250;
 const OFFBOUNS_THERSHOLD = 15;
+//const MAX_JUMPS = 2; // registra el número máximo de saltos permitidos
+
 
 export default class TRex extends Phaser.GameObjects.Sprite{
    
@@ -20,18 +22,30 @@ export default class TRex extends Phaser.GameObjects.Sprite{
 
         this.body.setCollideWorldBounds(true);
         this.isShrunk = false; 
+        this.jumpCount = 0; 
+        this.body.onWorldBounds = true; 
+        this.scene.physics.world.on('worldbounds', this.checkOffbounds, this);
 
     }
 
     checkOffbounds(callback){
-        if(this.getBounds().top >= 0-OFFBOUNS_THERSHOLD&&this.getBounds().bottom<=this.scene.config.height+OFFBOUNS_THERSHOLD){
+       if(this.getBounds().top >= 0-OFFBOUNS_THERSHOLD&&this.getBounds().bottom<=this.scene.config.height+OFFBOUNS_THERSHOLD){
            return;
         }
         callback();
+
+       /* if(this.getBounds().top >= this.scene.physics.world.bounds.height - OFFBOUNS_THERSHOLD){
+            this.jumpCount = 0;
+        }*/
     }
 
     jump(){
+        
         this.body.velocity.y = -JUMP_VELOCITY;
+        /*if (this.jumpCount < 2) {
+            this.body.velocity.y = -JUMP_VELOCITY; Intento de doble salto
+            this.jumpCount++; 
+       }*/
     }
 
     shrink(){
