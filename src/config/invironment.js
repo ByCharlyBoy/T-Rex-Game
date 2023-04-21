@@ -7,15 +7,15 @@ const DEFAULT_PIPE_GAP_SIZE_RANGE=[100,300] //Rango de tamanos
 export default class Cactuses{
   constructor(scene,layer){
     this.scene=scene;
-      this.group=scene.physics.add.group({
+      this.group = scene.physics.add.group ({
         allowGravity:false,
         immovable:true
       }); 
 
-    this.obstacle=[];
-    this.pool=[];
+    this.obstacle = [];
+    this.pool = [];
     this.layer = layer;
-    this.onPipeExited = ()=>{};
+    this.onObstacleExited = () => {};
   }
 
   start(){
@@ -32,22 +32,22 @@ export default class Cactuses{
   update(){
     for(let i=0;i<this.obstacle.length;i++){ //metodo object pooling
         const cactu=this.obstacle[i];
-        if(cactu.hasExitScreen()){
+        if(cactu.hasExitScreen()) {
             this.moveToPool(cactu,i);
-            this.onPipeExited();
+            this.onObstacleExited();
             break;
         }
     }
   }
 
-  spawnObstacle(){
+  spawnObstacle() {
     let cactus=null;
     //Object pooling
      if(this.pool.length>0){
       cactus=this.pool[0];
       cactus.resetPosition();
       this.pool.splice(0,1);
-    }else{
+    } else {
      cactus=new Cactus(this.group,this.scene.config.width,this.layer);
     }
     

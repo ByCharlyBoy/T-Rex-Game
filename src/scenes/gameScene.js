@@ -41,6 +41,8 @@ export default class GameScene extends Phaser.Scene{
     this.invironment=new Cactuses(this,this.backgroundLayer.game);
     this.physics.add.collider(this.dino,this.invironment.getGroup(),this.gameOver,null,this);
 
+    //this.physics.add.collider(this.dino, this.invironment, this.dino.hitCactus, null, this.dino); deteccion doble salto cuando saltas un catus
+
     this.score=new Score(this,16,16,this.backgroundLayer.ui);
     var pause_button=this.add.image(this.config.width-10,10,"pause_button").setOrigin(1,0);
     /*-> no funciona el button*/pause_button.on("pointer-down",this.pause,this);
@@ -54,7 +56,7 @@ export default class GameScene extends Phaser.Scene{
   update(){
     /*this.dino.checkOffbounds(()=>{
         this.gameOver();
-    })*/ //soluciondado lo de agacgarse 
+    })*/ //Por esto se reiniciaba el nivel cada que se reseteaba la escala del dino
     this.invironment.update();
   }
 
