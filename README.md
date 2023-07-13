@@ -30,37 +30,5 @@ And ready.
 NOTE: if we close the cmd, the host will be closed. IF this happens to them, we will only have to repeat the
 Step 4
 
-<------------------------------------------------------------------------------------------------------------------->
-
-Spanish 
-Para usar el juego necesitaremos lo siguiente: 
-
-1. Extraer el archivo del zip. 
-Clic drecho encima del archivo "T-Rex-Game-master.zip" extraer archivo 
-
-2. Una vez extraido, abriremos el archivo y seleccionaremos la barra de direcciones del buscador (que esta arriba)
-y pondremos en ella "cmd" 
-
-![alt text](InstructiveImg\director_busqueda_Trex.png)
-
-3. Esto nos abrira una ventana de color negro donde aparecera la ruta de nuestro archivo. 
-
-![alt text](InstructiveImg\npm_install_Trex.png)
-
-En esta ventana pondremos "npm install" 
-Nos tendra que aparecer una barrita de carga y esperaremos a que se nos instale el programa 
-Para saber que termino el proceso, nos tuvo que haber regresado a nuestra ruta origen (imagen se ve como quedaria)
-
-![alt text](InstructiveImg\npm_install_Trex2.png) 
-
-4. Despues lo unico que haremos sera poner "npm run dev" 
-Esto ocasionara y nos dara una direccion ip que tendremos que copiar y pegarla en nuestro buscador 
-Como sabremos cual es la ip, normalmente se llama   "http://localhost:8080/"
-Y listo.
-
-![alt text](InstructiveImg\npm_rin_dev_Trex.png)
-
-NOTA: si llegamos a cerrar el cmd, se cerrara el host. SI esto les llega pasar solo tendremos que repetir el 
-paso 4 
 
 
