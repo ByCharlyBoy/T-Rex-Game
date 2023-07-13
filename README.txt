@@ -9,6 +9,7 @@ Right click on the file "T-Rex-Game-master.zip" extract file
 and we will put in it "cmd"
 
 //Attach image
+![alt text](InstructiveImg\director_busqueda_Trex.png) 
 
 3. This will open a black window where the path of our file will appear.
 
