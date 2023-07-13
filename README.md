@@ -8,8 +8,8 @@ Right click on the file "T-Rex-Game-master.zip" extract file
 2. Once extracted, we will open the file and select the address bar of the browser (which is above)
 and we will put in it "cmd"
 
-//Attach image
-![alt text](InstructiveImg\director_busqueda_Trex.png) 
+![Screenshot](director)
+![alt text](http://url/to/img.png)
 
 3. This will open a black window where the path of our file will appear.
 
